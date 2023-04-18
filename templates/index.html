@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load cart %}
+{% load custom_filter %}
+
+    {% block start %} 
+
+      <!-- banner bg main start -->
+
+
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0 mt-5" role="alert">
+         <storng>{{ message }}</storng>
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </div> 
+      {% endfor %}
+      {% endif %}
+
+      <div class="banner_bg_main p-0 m-0">
+         
+         <div class="logo_section">
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="logo"><a href="index.html">MILATOS</a></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- logo section end -->
+      
+         <div class="header_section">
+            <div class="container">
+               <div class="containt_main">
+                  
+                  <div class="main">
+                     
+                     <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search this blog">
+                        <div class="input-group-append">
+                           <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                           <i class="fa fa-search"></i>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="header_box">
+                     <div class="login_menu row">
+                        <ul class="row">
+                           <li><a href="/checkout">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10 text-light">Cart</span></a>
+                              <span class="badge badge-info">{{request.session.cart.keys|length}}</span>
+                           </li>
+                           {% if request.session.customer %}
+                          
+                           <li class="nav-item ">
+                              <a class="nav-link text-light" href="/orders">Order<span class="sr-only">(current)</span></a>
+                            </li>
+                           <li class="nav-item ">
+                              <a class="nav-link text-light" href="/logout">Logout<span class="sr-only">(current)</span></a>
+                            </li>
+                            {% else %}
+
+                           <li><a href="/Login">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10 text-light">Login</span></a>
+                           </li>
+                           <li><a href="/signup">
+                              <i class="fa fa-user" aria-hidden="true"></i>
+                              <span class="padding_10 text-light">Signup</span></a>
+                           </li>
+                           {% endif %}
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- header section end -->
+         <!-- banner section start -->
+         <div class="banner_section layout_padding">
+            <div class="container">
+               <div id="my_slider" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                     <div class="carousel-item active">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="carousel-item">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="carousel-item">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
+                  <i class="fa fa-angle-left"></i>
+                  </a>
+                  <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
+                  <i class="fa fa-angle-right"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <!-- banner section end -->
+      </div>
+      <!-- banner bg main end -->
+      <!-- fashion section start -->
+      <div class="fashion_section">
+         <div id="main_slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+                  <div class="container">
+                     <h1 class="fashion_taital">OUR PRODUCTS</h1>
+                     <div class="fashion_section_2">
+                     {% comment %} <div class="col-lg-3 col-md-6 mb-4"> {% endcomment %}
+                        <div class="row">
+                        {% comment %} <div class="card"> {% endcomment %}
+                           {% for item in product %}
+                              <div class="col-lg-4 col-sm-4" id="{{item.id}}">
+                                 <div class="box_main">
+                                    <h4 class="shirt_text">{{item.product_name}}</h4>
+                                    {{item|is_in_cart:request.session.cart}}
+                                    <p class="price_text">Price  <span style="color: #262626;"> {{item.price|currency}}</span></p>
+                                    {% comment %} {{item | is_in_cart:request.session.cart}} {% endcomment %}
+                                    
+                                    <div class="tshirt_img"><img src="{{item.image.url}}"></div>
+                                    <div class="btn_main">
+                                       <div class="buy_bt"><a href="/cart">Buy Now</a></div>
+                                       <div class="seemore_bt"><a href="#">See More</a></div>
+                                    </div>
+                                    <div class="card-footer p-0  nu-gutter">
+
+                                       
+                                       
+                                       {% if item|is_in_cart:request.session.cart %}
+                                       <div class="row nu-gutter">
+                                          {% comment %} <input type='submit' value=" - " class="col-2 btn btn-block btn-secondary">  {% endcomment %}
+
+                                          <form action="/#{{item.id}}" class="col-2" method="post">
+                                             {% csrf_token %}
+                                             <input hidden type="text" name='product' value='{{item.id}}'>
+
+                                             <input hidden type="text" name='remove' value='true'>
+                                             
+                                             <input type='submit' value=" - " class=" btn btn-block btn-secondary" >
+                                          </form>
+
+                                          <div class="text-center col"> {{item|cart_quantity:request.session.cart}} in cart </div>
+
+                                          <form action="/#{{item.id}}" class="col-2" method="post">
+                                             {% csrf_token %}
+                                             <input hidden type="text" name='product' value='{{item.id}}'>
+
+                                             <input type='submit' value=" + " class=" btn btn-block btn-secondary" >
+                                          </form>
+
+                                         </div>
+                                         {% else %}
+                                        <form action="/#{{item.id}}" class="btn-block" method="post">
+                                       {% csrf_token %}
+                                       <input hidden type="text" name='product' value='{{item.id}}'>
+                                       {% comment %} <input hidden type="text" name='remove' value='True'> {% endcomment %}
+                                       <input type="submit" value=" add-to-cart " >
+                                    </form>
+                                    {% endif %}
+                                   
+                                 </div>
+                                 </div>
+                              </div>
+                           {% endfor %}
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+ 
+            {% comment %} <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+            <i class="fa fa-angle-right"></i> 
+            </a> {% endcomment %}
+         </div>
+      </div>
+      
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <h3>Contact <span>Us</span></h3>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        </div>
+
+        <div>
+          <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>A108 Adam Street, New York, NY 535022</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>info@example.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+1 5589 55488 55s</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="/" method="post" role="form" class="php-email-form">
+               {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group ">
+                  <input type="text" name="name" class="form-control border border-info" id="name" placeholder="Your Name" >
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="emaill" id="email" placeholder="Your Email" >
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control"   name="subject" id="subject" placeholder="Subject" >
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" ></textarea>
+              </div>
+              <div class="my-3 ">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+            
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+      <!-- fashion section end -->
+      <!-- footer section start -->
+      <div class="footer_section layout_padding">
+         <div class="container">
+            <div class="footer_logo"><a href="index.html"><img src="{% static 'images/footer-logo.png' %}"></a></div>
+            <div class="input_bt">
+               <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
+               <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
+            </div>
+            <div class="footer_menu">
+               <ul>
+                  <li><a href="#">Best Sellers</a></li>
+                  <li><a href="#">Gift Ideas</a></li>
+                  <li><a href="#">New Releases</a></li>
+                  <li><a href="#">Today's Deals</a></li>
+                  <li><a href="#">Customer Service</a></li>
+               </ul>
+            </div>
+            <div class="location_main">Help Line  Number : <a href="#">+1 1800 1200 1200</a></div>
+         </div>
+      </div>
+      <!-- footer section end -->
+      <!-- copyright section start -->
+      <div class="copyright_section">
+         <div class="container">
+            <p class="copyright_text">© 2020 All Rights Reserved. Design by <a href="https://html.design">Free html  Templates</a></p>
+         </div>
+      </div>
+      <!-- copyright section end -->
+      <!-- Javascript files-->
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+      <script src="{% static 'js/plugin.js' %}"></script>
+      <!-- sidebar -->
+      <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+      <script src="{% static 'js/custom.js' %}"></script>
+      <script>
+         function openNav() {
+           document.getElementById("mySidenav").style.width = "250px";
+         }
+         
+         function closeNav() {
+           document.getElementById("mySidenav").style.width = "0";
+         }
+      </script>
+    {% endblock start %}

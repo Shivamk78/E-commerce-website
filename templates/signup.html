@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block start %}
+
+<main>
+    <div class="container" style="padding-top: 80px;">
+            
+                <div class='col-lg-5 mx-auto border rounded pt-4'>
+                    <h3 class="alert alert-light text-center">Create An Account</h3>
+                    <form  action="/signup" method='POST'>{% csrf_token %}
+                        {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                        {% endif %}
+                        <!-- first name -->
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Firt Name</label>
+                            <input type="text" value="{{values.first_name}}" class="form-control" id="firstname" name="firstname">
+                        </div>
+                        <!-- last name -->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                            <input type="text" value="{{values.last_name}}" class="form-control" id="lastname" name="lastname"  >
+                        </div>
+                        <!-- phone number -->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Phone No.</label>
+                            <input  placeholder="122345678"type="text" value="{{values.phone}}" class="form-control" id="phone" name="phone"  >
+                        </div>
+                        <!-- email address -->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input  placeholder="Enter Email" value="{{values.email}}" type="email" class="form-control" id="email" name="email" required >
+                        </div>
+                        <!-- password -->
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input placeholder="*********" type="password" class="form-control" id="password" name="password">
+                        </div>
+                       
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <br><br>
+
+                        Already Uer? <a href="/Login">&nbsp;&nbsp;&nbsp; Login</a>
+                        <br>
+                    </form>
+
+                </div>
+
+    </div>
+</main>
+
+{% endblock start %}

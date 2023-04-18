@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block start %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mb-4">
+            <div class='col-lg-7 mx-auto border rounded pt-4'>
+            {% comment %} <div class="card"> {% endcomment %}
+              <h2 class="text-center">Shipping address</h2>
+                <form action="/cart" method="post" class='card-body'>
+                    {% csrf_token %}
+                    <div class="md-form mb-5">
+                        <input class='form-control' type="text" name='address' placeholder="address">
+                        <!-- <label for="address" class="">address</label> -->
+                    </div>
+
+                     <div class="md-form mb-5">
+                        
+                        <input class='form-control'  type="text" name='name' placeholder="name">
+                        <!-- <label for="" class="">name</label> -->
+                        </div>   
+                        
+                        <div class="md-form mb-5">
+                            <input class='form-control' type="text" name='phone' placeholder="phone">
+                            <!-- <label for="" class="">phone</label> -->
+                        </div>
+                            
+                        <div class="md-form mb-5">
+                            <input class='form-control' type="text" name='state' placeholder="state">
+                            <!-- <label for="" class="">state</label> -->
+                        </div>
+                        
+                        <div class="md-form mb-5">
+                            <input class='form-control' type="text" name='pincode' placeholder="pincode">
+                            <!-- <label for="" class="">pincode</label> -->
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button> 
+
+                    {% comment %} <a href="/cart" class="btn btn-danger btn-primary">Submit</a> {% endcomment %}
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock start %}

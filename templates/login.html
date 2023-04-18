@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+
+{% block start %}
+
+<main>
+
+    
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0 mt-5" role="alert">
+       <storng>{{ message }}</storng>
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+       </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    <div class="container" style="padding-top: 80px;">
+            
+        <div class='col-lg-5 mx-auto border rounded pt-4'>
+            <h3 class="alert alert-light text-center">Login Here</h3>
+
+                    <form action="/Login" method="POST">{% csrf_token %}
+                        {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                        {% endif %}
+                        <!-- email -->
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input required type="email" name="email" id="" value="{{values.email}}" class=" form-control-sm form-control" placeholder="example@gmail.com">
+                        </div>
+
+                        <!-- password -->
+                        <div class="form-group">
+                            <label for="">Password</label>
+                            <input type="password" name="password" id="" class="form-control form-control-sm" placeholder="********">
+                        </div>
+
+                        <hr>
+                        <div class="form-group">
+                            <input class="btn btn-sm btn-info " type="submit" value="Login">
+                        </div>
+                        <br>
+                        Don't Have Account? <a href="/signup">&nbsp;&nbsp; Signup</a>
+                    </form>
+
+        </div>
+    </div>
+</main>
+
+{% endblock start %}
